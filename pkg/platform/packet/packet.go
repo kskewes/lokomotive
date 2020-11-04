@@ -195,6 +195,17 @@ func (c *config) Initialize(ex *terraform.Executor) error {
 		}
 	}
 
+	// TODO: A transient change which shall be reverted in a follow up PR to handle
+	// https://github.com/kinvolk/lokomotive/issues/716.
+	// Extract host protection chart.
+	src = filepath.Join(assets.ControlPlaneSource, "packet-ccm")
+	dst = filepath.Join(assetDir,
+		"cluster-assets", "charts", "kube-system", "packet-ccm")
+
+	if err := assets.Extract(src, dst); err != nil {
+		return fmt.Errorf("extracting packet-ccm chart: %w", err)
+	}
+
 	terraformRootDir := terraform.GetTerraformRootDir(assetDir)
 
 	return createTerraformConfigFile(c, terraformRootDir)
