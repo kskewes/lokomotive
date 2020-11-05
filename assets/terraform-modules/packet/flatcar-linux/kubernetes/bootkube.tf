@@ -48,4 +48,5 @@ module "bootkube" {
   encrypt_pod_traffic         = var.encrypt_pod_traffic
 
   ignore_x509_cn_check = var.ignore_x509_cn_check
+  cloud_provider       = "external"
 }
