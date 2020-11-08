@@ -136,7 +136,11 @@ terraform {
   required_providers {
     libvirt = {
 			source = "dmacvicar/libvirt"
+			{{- if .Config.QEMUURI }}
+			uri     = {{.Config.QEMUURI }}
+			{{else}}
 			uri     = "qemu:///system"
+			{{- end}}
 			version = "0.6.2"
     }
     ct = {
@@ -147,8 +151,13 @@ terraform {
 }
 
 provider "libvirt" {
+	{{- if .Config.QEMUURI }}
+	uri     = {{.Config.QEMUURI }}
+	{{else}}
 	uri     = "qemu:///system"
+	{{- end}}
 }
+
 # Stub output, which indicates, that Terraform run at least once.
 # Used when checking, if we should ask user for confirmation, when
 # applying changes to the cluster.

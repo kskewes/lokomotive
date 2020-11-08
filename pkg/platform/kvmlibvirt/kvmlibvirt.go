@@ -64,11 +64,13 @@ type config struct {
 	ControllerCLCSnippets        []string     `hcl:"controller_clc_snippets,optional"`
 	KubeAPIServerExtraFlags      []string     `hcl:"kube_apiserver_extra_flags,optional"`
 	WorkerPools                  []workerPool `hcl:"worker_pool,block"`
+	QEMUURI                      string       `hcl:"qemu_uri,optional"`
 }
 
 func init() { //nolint:gochecknoinits
 	c := &config{
 		EnableTLSBootstrap: true,
+		QEMUURI:            "qemu:///system",
 	}
 	platform.Register("kvm-libvirt", c)
 }
